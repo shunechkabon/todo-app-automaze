@@ -10,6 +10,8 @@ function buildQuery(params: TasksQuery) {
   if (params.q) sp.set("q", params.q);
   if (params.status && params.status !== "all") sp.set("status", params.status);
   if (params.order) sp.set("order", params.order);
+  if (params.category && params.category !== "all")
+    sp.set("category", params.category);
   return sp.toString();
 }
 

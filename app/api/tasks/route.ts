@@ -9,6 +9,7 @@ export async function GET(req: Request) {
     q: searchParams.get("q") ?? undefined,
     status: searchParams.get("status") ?? undefined,
     order: searchParams.get("order") ?? undefined,
+    category: searchParams.get("category") ?? undefined,
   });
 
   if (!parsed.success) {

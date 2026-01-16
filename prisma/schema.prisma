@@ -14,4 +14,5 @@ model Task {
   done      Boolean  @default(false)
   priority  Int      @default(5) // 1..10
   createdAt DateTime @default(now())
+  category  String?
 }

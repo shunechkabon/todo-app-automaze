@@ -5,6 +5,7 @@ import type { Task } from "@/lib/types/task";
 import { patchTask, removeTask } from "@/lib/api/tasks";
 import { formatDateTime } from "@/lib/utils/date";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -21,22 +22,34 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Briefcase,
+  Home,
+  GraduationCap,
+  HeartPulse,
+  Tag,
+  X,
+} from "lucide-react";
 
 type Props = {
   task: Task;
-  onChanged: () => void;
+  onUpdated: (patch: Partial<Task>) => void;
+  onDeleted: () => void;
 };
 
-export function TaskItem({ task, onChanged }: Props) {
+export function TaskItem({ task, onUpdated, onDeleted }: Props) {
   const [isPending, setIsPending] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleToggleDone = async () => {
+    const nextDone = !task.done;
+
+    onUpdated({ done: nextDone });
     setIsPending(true);
     try {
-      await patchTask(task.id, { done: !task.done });
-      onChanged();
+      await patchTask(task.id, { done: nextDone });
     } catch (e) {
+      onUpdated({ done: task.done });
       console.error(e);
     } finally {
       setIsPending(false);
@@ -47,11 +60,12 @@ export function TaskItem({ task, onChanged }: Props) {
     const priority = Number(value);
     if (!Number.isFinite(priority)) return;
 
+    onUpdated({ priority });
     setIsPending(true);
     try {
       await patchTask(task.id, { priority });
-      onChanged();
     } catch (e) {
+      onUpdated({ priority: task.priority });
       console.error(e);
     } finally {
       setIsPending(false);
@@ -63,7 +77,7 @@ export function TaskItem({ task, onChanged }: Props) {
     try {
       await removeTask(task.id);
       setOpen(false);
-      onChanged();
+      onDeleted();
     } catch (e) {
       console.error(e);
     } finally {
@@ -71,40 +85,69 @@ export function TaskItem({ task, onChanged }: Props) {
     }
   };
 
+  const categoryMeta = {
+    work: { label: "Work", Icon: Briefcase, colorClass: "text-blue-600" },
+    home: { label: "Home", Icon: Home, colorClass: "text-emerald-600" },
+    study: {
+      label: "Study",
+      Icon: GraduationCap,
+      colorClass: "text-violet-600",
+    },
+    health: { label: "Health", Icon: HeartPulse, colorClass: "text-rose-600" },
+    other: { label: "Other", Icon: Tag, colorClass: "text-zinc-500" },
+  } as const;
+
+  const meta =
+    task.category && task.category in categoryMeta
+      ? categoryMeta[task.category as keyof typeof categoryMeta]
+      : null;
+
   return (
-    <li className="rounded-md border p-3">
+    <li className="rounded-md border p-3 shadow">
       <div className="flex items-center justify-between gap-3">
         <label className="flex items-center gap-3">
           {/* Done/Undone */}
-          <input
-            type="checkbox"
+          <Checkbox
             checked={task.done}
-            onChange={handleToggleDone}
+            onCheckedChange={handleToggleDone}
             disabled={isPending}
-            className="h-4 w-4"
+            className="data-[state=checked]:bg-white data-[state=checked]:text-black"
           />
 
-          {/* Title */}
-          <span className={task.done ? "line-through opacity-60" : ""}>
-            {task.title}
-          </span>
+          <div className="flex items-center gap-2 min-w-0">
+            {/* Category badge */}
+            {meta && (
+              <span className="flex items-center">
+                <meta.Icon
+                  className={`size-4 shrink-0 ${
+                    task.done ? "text-zinc-400" : meta.colorClass
+                  }`}
+                />
+              </span>
+            )}
+
+            {/* Title */}
+            <span className={task.done ? "line-through opacity-60" : ""}>
+              {task.title}
+            </span>
+          </div>
 
           {/* Created at */}
           <span className="text-xs opacity-50">
-            created: {formatDateTime(task.createdAt)}
+            {formatDateTime(task.createdAt)}
           </span>
         </label>
 
         <div className="flex items-center gap-3">
           {/* Priority */}
-          <span className="text-xs opacity-70">priority</span>
+          <span className="text-xs opacity-70">priority:</span>
 
           <Select
             value={String(task.priority)}
             onValueChange={handlePriorityChange}
             disabled={isPending}
           >
-            <SelectTrigger className="w-[90px]">
+            <SelectTrigger className="w-[70px] cursor-pointer">
               <SelectValue placeholder="prio" />
             </SelectTrigger>
 
@@ -120,8 +163,14 @@ export function TaskItem({ task, onChanged }: Props) {
           {/* Delete dialog */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button variant="destructive" size="sm" disabled={isPending}>
-                Delete
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled={isPending}
+                className="text-red-600 hover:text-red-700 hover:bg-white hover:border-red-500 cursor-pointer border shadow"
+                aria-label="Delete task"
+              >
+                <X className="size-5" />
               </Button>
             </DialogTrigger>
 
@@ -138,6 +187,7 @@ export function TaskItem({ task, onChanged }: Props) {
                   variant="outline"
                   onClick={() => setOpen(false)}
                   disabled={isPending}
+                  className="cursor-pointer"
                 >
                   Cancel
                 </Button>
@@ -145,6 +195,7 @@ export function TaskItem({ task, onChanged }: Props) {
                   variant="destructive"
                   onClick={handleDelete}
                   disabled={isPending}
+                  className="cursor-pointer"
                 >
                   Delete
                 </Button>
