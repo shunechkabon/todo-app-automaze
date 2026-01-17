@@ -215,7 +215,7 @@ export function TaskForm({ onCreated }: Props) {
             <Button
               type="submit"
               disabled={isPending || !title.trim()}
-              className="cursor-pointer w-[90px]"
+              className="cursor-pointer"
             >
               {isPending ? "Creating…" : "Create"}
             </Button>

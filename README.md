@@ -15,6 +15,7 @@ A full-stack TODO application with task management, filtering, and prioritizatio
 - Sort tasks by priority
 - Keyboard-friendly form (Enter to submit)
 - Clean and user-friendly UI
+- Mobile-first responsive layout with adaptive breakpoints
 
 ---
 

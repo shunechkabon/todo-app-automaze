@@ -13,11 +13,8 @@ export function TaskList({ tasks, onTaskUpdated, onTaskDeleted }: Props) {
   }
 
   return (
-    <div
-      className="w-full h-screen pr-4 pl-24 py-8 bg-contain bg-[position:0%_0%] bg-no-repeat overflow-hidden"
-      style={{ backgroundImage: "url('/app-bg.png')" }}
-    >
-      <ul className="w-full space-y-2 h-full overflow-y-auto pr-2">
+    <div className="m-auto w-full h-[710px] pr-4 pl-14 py-4 bg-[url('/app-bg-mobile.png')] bg-contain bg-[position:0%_0%] bg-no-repeat overflow-hidden md:bg-[url('/app-bg-desktop.png')] md:pl-20 md:py-8 md:h-[650px] xl:pl-24 xl:h-[760px]">
+      <ul className="w-full space-y-2 max-h-[calc(710px-32px)] overflow-y-auto pr-2 md:max-h-[calc(650px-64px)] xl:max-h-[calc(760px-64px)]">
         {tasks.map((task) => (
           <TaskItem
             key={task.id}

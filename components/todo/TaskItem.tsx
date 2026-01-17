@@ -104,61 +104,69 @@ export function TaskItem({ task, onUpdated, onDeleted }: Props) {
 
   return (
     <li className="rounded-md border p-3 shadow">
-      <div className="flex items-center justify-between gap-3">
-        <label className="flex items-center gap-3">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <label className="flex min-w-0 items-start gap-3 md:items-center">
           {/* Done/Undone */}
           <Checkbox
             checked={task.done}
             onCheckedChange={handleToggleDone}
             disabled={isPending}
-            className="data-[state=checked]:bg-white data-[state=checked]:text-black"
+            className="data-[state=checked]:bg-white data-[state=checked]:text-black mt-1 md:mt-0"
           />
 
-          <div className="flex items-center gap-2 min-w-0">
-            {/* Category badge */}
-            {meta && (
-              <span className="flex items-center">
-                <meta.Icon
-                  className={`size-4 shrink-0 ${
-                    task.done ? "text-zinc-400" : meta.colorClass
-                  }`}
-                />
-              </span>
-            )}
+          <div className="min-w-0 flex flex-col md:flex-row md:flex-wrap">
+            <div className="flex min-w-0 items-center gap-x-2 gap-y-1">
+              {/* Category badge */}
+              {meta && (
+                <span className="flex items-center">
+                  <meta.Icon
+                    className={`size-4 shrink-0 ${
+                      task.done ? "text-zinc-400" : meta.colorClass
+                    }`}
+                  />
+                </span>
+              )}
 
-            {/* Title */}
-            <span className={task.done ? "line-through opacity-60" : ""}>
-              {task.title}
+              {/* Title */}
+              <span
+                className={`min-w-0 flex-1 break-words ${
+                  task.done ? "line-through opacity-60" : ""
+                }`}
+              >
+                {task.title}
+              </span>
+            </div>
+
+            {/* Created at */}
+            <span className="mt-1 ml-6 whitespace-nowrap text-xs opacity-50">
+              {formatDateTime(task.createdAt)}
             </span>
           </div>
-
-          {/* Created at */}
-          <span className="text-xs opacity-50">
-            {formatDateTime(task.createdAt)}
-          </span>
         </label>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 md:justify-end">
           {/* Priority */}
-          <span className="text-xs opacity-70">priority:</span>
+          <div className="flex flex-row items-center gap-2">
+            <span className="text-xs opacity-70">priority:</span>
 
-          <Select
-            value={String(task.priority)}
-            onValueChange={handlePriorityChange}
-            disabled={isPending}
-          >
-            <SelectTrigger className="w-[70px] cursor-pointer">
-              <SelectValue placeholder="prio" />
-            </SelectTrigger>
+            <Select
+              value={String(task.priority)}
+              onValueChange={handlePriorityChange}
+              disabled={isPending}
+            >
+              <SelectTrigger className="w-[70px] cursor-pointer">
+                <SelectValue placeholder="prio" />
+              </SelectTrigger>
 
-            <SelectContent>
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((p) => (
-                <SelectItem key={p} value={String(p)}>
-                  {p}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+              <SelectContent>
+                {Array.from({ length: 10 }, (_, i) => i + 1).map((p) => (
+                  <SelectItem key={p} value={String(p)}>
+                    {p}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Delete dialog */}
           <Dialog open={open} onOpenChange={setOpen}>

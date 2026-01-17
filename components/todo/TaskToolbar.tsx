@@ -41,9 +41,9 @@ export function TaskToolbar({
   onCategoryChange,
 }: Props) {
   return (
-    <div className="flex w-full flex-col pl-8 gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex w-full flex-col gap-3 md:flex-row md:items-center md:justify-between md:pl-7 xl:pl-8">
       {/* Search */}
-      <div className="w-full sm:max-w-xs">
+      <div className="w-full md:max-w-xs">
         <Input
           value={q}
           onChange={(e) => onQChange(e.target.value)}
@@ -51,81 +51,88 @@ export function TaskToolbar({
         />
       </div>
 
-      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
-        {/* Done/Undone */}
-        <Tabs
-          value={status}
-          onValueChange={(v) => onStatusChange(v as TaskStatusFilter)}
-        >
-          <TabsList>
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="done">Done</TabsTrigger>
-            <TabsTrigger value="undone">Undone</TabsTrigger>
-          </TabsList>
-        </Tabs>
+      <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row md:items-center">
+        <div className="m-auto">
+          {/* Done/Undone */}
+          <Tabs
+            value={status}
+            onValueChange={(v) => onStatusChange(v as TaskStatusFilter)}
+          >
+            <TabsList>
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="done">Done</TabsTrigger>
+              <TabsTrigger value="undone">Undone</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
 
-        {/* Categories */}
-        <Select
-          value={category}
-          onValueChange={(v) => onCategoryChange(v as TaskCategoryFilter)}
-        >
-          <SelectTrigger className="w-[140px] cursor-pointer">
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
+        <div className="flex w-full justify-between md:gap-3">
+          {/* Categories */}
+          <Select
+            value={category}
+            onValueChange={(v) => onCategoryChange(v as TaskCategoryFilter)}
+          >
+            <SelectTrigger className="max-w-[134px] w-full cursor-pointer md:max-w-[140px]">
+              <SelectValue className="truncate" placeholder="Category" />
+            </SelectTrigger>
 
-          <SelectContent>
-            <SelectItem value="all">All categories</SelectItem>
+            <SelectContent>
+              <SelectItem value="all">All categories</SelectItem>
 
-            <SelectItem value="work">
-              <div className="flex items-center gap-2">
-                <Briefcase className="size-4 text-blue-600" />
-                Work
-              </div>
-            </SelectItem>
+              <SelectItem value="work">
+                <div className="flex items-center gap-2">
+                  <Briefcase className="size-4 text-blue-600" />
+                  Work
+                </div>
+              </SelectItem>
 
-            <SelectItem value="home">
-              <div className="flex items-center gap-2">
-                <Home className="size-4 text-emerald-600" />
-                Home
-              </div>
-            </SelectItem>
+              <SelectItem value="home">
+                <div className="flex items-center gap-2">
+                  <Home className="size-4 text-emerald-600" />
+                  Home
+                </div>
+              </SelectItem>
 
-            <SelectItem value="study">
-              <div className="flex items-center gap-2">
-                <GraduationCap className="size-4 text-violet-600" />
-                Study
-              </div>
-            </SelectItem>
+              <SelectItem value="study">
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="size-4 text-violet-600" />
+                  Study
+                </div>
+              </SelectItem>
 
-            <SelectItem value="health">
-              <div className="flex items-center gap-2">
-                <HeartPulse className="size-4 text-rose-600" />
-                Health
-              </div>
-            </SelectItem>
+              <SelectItem value="health">
+                <div className="flex items-center gap-2">
+                  <HeartPulse className="size-4 text-rose-600" />
+                  Health
+                </div>
+              </SelectItem>
 
-            <SelectItem value="other">
-              <div className="flex items-center gap-2">
-                <Tag className="size-4 text-zinc-500" />
-                Other
-              </div>
-            </SelectItem>
-          </SelectContent>
-        </Select>
+              <SelectItem value="other">
+                <div className="flex items-center gap-2">
+                  <Tag className="size-4 text-zinc-500" />
+                  Other
+                </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
 
-        {/* Priority */}
-        <Select
-          value={order}
-          onValueChange={(v) => onOrderChange(v as PriorityOrder)}
-        >
-          <SelectTrigger className="w-[180px] cursor-pointer">
-            <SelectValue placeholder="Sort by priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="asc">Priority: low → high</SelectItem>
-            <SelectItem value="desc">Priority: high → low</SelectItem>
-          </SelectContent>
-        </Select>
+          {/* Priority */}
+          <Select
+            value={order}
+            onValueChange={(v) => onOrderChange(v as PriorityOrder)}
+          >
+            <SelectTrigger className="max-w-[174px] w-full cursor-pointer">
+              <SelectValue
+                className="truncate"
+                placeholder="Sort by priority"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="asc">Priority: low → high</SelectItem>
+              <SelectItem value="desc">Priority: high → low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );

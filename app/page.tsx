@@ -71,34 +71,38 @@ export default function Home() {
   }, [q]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-200 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-5xl flex-col gap-4 py-12 pr-32 pl-24 bg-white dark:bg-black sm:items-start">
-        <div className="flex w-full items-center justify-between pl-8">
+    <div className="min-h-dvh bg-zinc-200 font-sans dark:bg-black">
+      <main className="mx-auto w-[375px] bg-white dark:bg-black px-4 py-8 md:w-[730px] md:pr-10 md:pl-6 md:py-10 xl:w-[1000px] xl:pr-32 xl:pl-24 xl:py-12">
+        <div className="flex w-full flex-col gap-3 md:flex-row md:items-center md:justify-between md:pl-7 xl:pl-8">
           <h1 className="text-2xl font-semibold">TODO</h1>
           <TaskForm onCreated={reload} />
         </div>
 
-        <TaskToolbar
-          q={q}
-          onQChange={setQ}
-          status={status}
-          onStatusChange={setStatus}
-          order={order}
-          onOrderChange={setOrder}
-          category={category}
-          onCategoryChange={setCategory}
-        />
-
-        {loading && <p className="text-sm opacity-70">Loading…</p>}
-        {error && <p className="text-sm text-red-600">Error: {error}</p>}
-
-        {!loading && !error && (
-          <TaskList
-            tasks={tasks}
-            onTaskUpdated={updateTaskInState}
-            onTaskDeleted={removeTaskFromState}
+        <div className="mt-4 md:mt-6">
+          <TaskToolbar
+            q={q}
+            onQChange={setQ}
+            status={status}
+            onStatusChange={setStatus}
+            order={order}
+            onOrderChange={setOrder}
+            category={category}
+            onCategoryChange={setCategory}
           />
-        )}
+        </div>
+
+        <div className="mt-4 md:mt-6">
+          {loading && <p className="text-sm opacity-70">Loading…</p>}
+          {error && <p className="text-sm text-red-600">Error: {error}</p>}
+
+          {!loading && !error && (
+            <TaskList
+              tasks={tasks}
+              onTaskUpdated={updateTaskInState}
+              onTaskDeleted={removeTaskFromState}
+            />
+          )}
+        </div>
       </main>
     </div>
   );
