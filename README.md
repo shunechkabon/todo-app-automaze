@@ -44,8 +44,8 @@ A full-stack TODO application with task management, filtering, and prioritizatio
 ### 1. Clone the repository
 
 ```sh
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/shunechkabon/todo-app-automaze.git
+cd todo-app-automaze
 ```
 
 ### 2. Install dependencies
@@ -100,7 +100,7 @@ The app will be available at:
 ## 🚀 Deployment
 
 The application is deployed and available here:
-🔗 **Live Demo:**
+🔗 **Live Demo:** https://todo-app-automaze.vercel.app/
 
 Repository:
 🔗 **GitHub:** https://github.com/shunechkabon/todo-app-automaze
@@ -122,5 +122,5 @@ with attention to code quality and user experience.
 
 ## 👩‍💻 Author
 
-Created by Oleksandra Bondaruk
+Created by **Oleksandra Bondaruk**
 Junior Full-Stack Developer
