@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 Task Manager (TODO App)
 
-## Getting Started
+A full-stack TODO application with task management, filtering, and prioritization.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Features
+
+- Create and delete tasks
+- Mark tasks as done / undone
+- Assign priority (1-10)
+- Categorize tasks (Work, Home, Study, Health, Other)
+- Search tasks by title
+- Filter tasks by status (all / done / undone)
+- Sort tasks by priority
+- Keyboard-friendly form (Enter to submit)
+- Clean and user-friendly UI
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **shadcn/ui**
+- **Radix UI**
+- **Lucide Icons**
+
+### Backend
+
+- **Node.js**
+- **API routes (Next.js)**
+- **Prisma ORM**
+- **PostgreSQL**
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone the repository
+
+```sh
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Environment variables
 
-## Learn More
+Create a `.env` file in the project root:
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+DATABASE_URL=your_postgresql_connection_string
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run database migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+npx prisma migrate dev
+```
 
-## Deploy on Vercel
+### 5. Start the development server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app will be available at:
+👉 http://localhost:3000
+
+---
+
+## 🗂 Project Structure
+
+```sh
+.
+├── app/                # Next.js app router
+│   ├── api/            # Backend API routes
+│   └── page.tsx        # Main page
+├── components/
+│   ├── todo/           # Feature-specific components
+│   └── ui/             # shadcn/ui components
+├── lib/                # API calls, db, services, types, utils, validators
+├── prisma/             # Prisma schema & migrations
+├── public/             # Static assets
+└── README.md           # Project documentation
+```
+
+---
+
+## 🚀 Deployment
+
+The application is deployed and available here:
+🔗 **Live Demo:**
+
+Repository:
+🔗 **GitHub:** https://github.com/shunechkabon/todo-app-automaze
+
+---
+
+## 🧠 Notes
+
+Key implementation details:
+
+- clean code structure
+- predictable state management
+- thoughtful UX (loading states, keyboard interactions, form reset behavior)
+
+The goal was to build a small but realistic full-stack feature
+with attention to code quality and user experience.
+
+---
+
+## 👩‍💻 Author
+
+Created by Oleksandra Bondaruk
+Junior Full-Stack Developer
