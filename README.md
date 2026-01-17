@@ -111,9 +111,10 @@ Repository:
 
 Key implementation details:
 
-- clean code structure
-- predictable state management
-- thoughtful UX (loading states, keyboard interactions, form reset behavior)
+- Clean and maintainable code structure
+- Predictable state management
+- Thoughtful UX (loading states, keyboard interactions, form reset behavior)
+- No authentication - tasks are shared globally.
 
 The goal was to build a small but realistic full-stack feature
 with attention to code quality and user experience.
